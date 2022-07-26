@@ -1,7 +1,7 @@
 import { prisma } from "../src/database.js";
 
-async function main(){
-
+async function main() {
+  await prisma.$executeRaw`TRUNCATE TABLE recommendations`;
 }
 
 main()
