@@ -18,3 +18,14 @@ export async function getIdByName(name: string) {
   });
   return result.id;
 }
+
+export function expectedObject(id: number) {
+  const object = {
+    id,
+    name: "mockVideo",
+    youtubeLink: "https://www.youtube.com/watch?v=chwyjJbcs1Y",
+    score: 0,
+  };
+
+  return object;
+}

@@ -1,6 +1,10 @@
 import app from "../app.js";
 import supertest from "supertest";
-import { getIdByName, validBody } from "./factories/recommendationsFactory.js";
+import {
+  expectedObject,
+  getIdByName,
+  validBody,
+} from "./factories/recommendationsFactory.js";
 
 describe("POST /recommendations", () => {
   it("422 on invalid input", async () => {
@@ -42,5 +46,26 @@ describe("POST /recommendations/:id/downvote", () => {
       `/recommendations/${id}/downvote`
     );
     expect(response.status).toEqual(200);
+  });
+});
+
+describe("GET /recommendations", () => {
+  it("get 200 and valid response", async () => {
+    const response = await supertest(app).get("/recommendations");
+    const id = await getIdByName("mockVideo");
+    expect(response.status).toEqual(200);
+    expect(response.body[0]).toEqual(
+      expect.objectContaining(expectedObject(id))
+    );
+    expect(response.body.length).toBeLessThan(11);
+  });
+});
+
+describe("GET /recommendations/:id", () => {
+  it("get 200 and valid response", async () => {
+    const id = await getIdByName("mockVideo");
+    const response = await supertest(app).get(`/recommendations/${id}`);
+    expect(response.status).toEqual(200);
+    expect(response.body).toEqual(expect.objectContaining(expectedObject(id)));
   });
 });
