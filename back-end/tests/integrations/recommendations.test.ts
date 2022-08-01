@@ -1,10 +1,10 @@
-import app from "../src/app.js";
+import app from "../../src/app.js";
 import supertest from "supertest";
 import {
   expectedObject,
   getIdByName,
   validBody,
-} from "./factories/recommendationsFactory.js";
+} from "../factories/recommendationsFactory.js";
 
 describe("POST /recommendations", () => {
   it("422 on invalid input", async () => {
