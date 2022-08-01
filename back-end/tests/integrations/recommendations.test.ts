@@ -5,6 +5,7 @@ import {
   getIdByName,
   validBody,
 } from "../factories/recommendationsFactory.js";
+import { Recommendation } from "@prisma/client";
 
 describe("POST /recommendations", () => {
   it("422 on invalid input", async () => {
@@ -67,5 +68,18 @@ describe("GET /recommendations/:id", () => {
     const response = await supertest(app).get(`/recommendations/${id}`);
     expect(response.status).toEqual(200);
     expect(response.body).toEqual(expect.objectContaining(expectedObject(id)));
+  });
+});
+
+describe("GET /recommendations/random", () => {
+  it("should return status 200 and a random recommendation", async () => {
+    const response = await supertest(app).get("/recommendations/random");
+    expect(Object.keys(response.body)).toEqual([
+      "id",
+      "name",
+      "youtubeLink",
+      "score",
+    ]);
+    expect(response.status).toEqual(200);
   });
 });
