@@ -1,5 +1,5 @@
-import { prisma } from "../../database.js";
-import { CreateRecommendationData } from "../../services/recommendationsService.js";
+import { prisma } from "../../src/database.js";
+import { CreateRecommendationData } from "../../src/services/recommendationsService.js";
 
 export function validBody() {
   const body: CreateRecommendationData = {
